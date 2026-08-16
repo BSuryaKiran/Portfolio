@@ -1,0 +1,204 @@
+/* ============================================
+   PROJECTS SECTION STYLES
+   ============================================ */
+
+.projects {
+  padding: 6rem 0;
+  background: #0f0f11;
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-glow {
+  position: absolute;
+  bottom: -60px;
+  right: 20%;
+  width: 420px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(50px);
+}
+
+/* Two-column card grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Project card */
+.project-card {
+  position: relative;
+  border-radius: 1.125rem;
+  border: 1px solid #27272a;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card-inner {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Top row: icon + title + links */
+.project-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-meta { display: flex; align-items: center; gap: 0.75rem; }
+
+.project-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.75rem;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.project-title-block {}
+.project-title    { font-size: 1rem;   font-weight: 700; margin-bottom: 0.15rem; }
+.project-subtitle { font-size: 0.75rem; color: #52525b; }
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.project-link-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717a;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.project-link-btn:hover {
+  background: #3f3f46;
+  color: #e4e4e7;
+  border-color: #52525b;
+}
+
+/* Description */
+.project-desc {
+  font-size: 0.875rem;
+  color: #71717a;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+/* Highlights list */
+.project-highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.project-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #71717a;
+  line-height: 1.6;
+}
+
+.project-highlight-arrow {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-size: 0.65rem;
+}
+
+/* Tech badges */
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+}
+
+/* Animated bottom bar */
+.project-bar {
+  height: 2px;
+  width: 0;
+  transition: width 0.45s ease;
+}
+
+.project-card:hover .project-bar { width: 100%; }
+
+/* Variant colours */
+.project-card--violet {
+  background: #100c1c;
+}
+.project-card--violet:hover {
+  border-color: rgba(109, 40, 217, 0.5);
+  box-shadow: 0 16px 48px rgba(109, 40, 217, 0.12);
+}
+.project-card--violet .project-title       { color: #a78bfa; }
+.project-card--violet .project-bar         { background: linear-gradient(to right, #7c3aed, #a78bfa); }
+.project-card--violet .project-highlight-arrow { color: #a78bfa; }
+
+.project-badge--violet {
+  background: rgba(109,40,217,0.15);
+  border: 1px solid rgba(109,40,217,0.35);
+  color: #c4b5fd;
+}
+
+.project-card--green {
+  background: #071812;
+}
+.project-card--green:hover {
+  border-color: rgba(5, 150, 105, 0.5);
+  box-shadow: 0 16px 48px rgba(5, 150, 105, 0.1);
+}
+.project-card--green .project-title        { color: #34d399; }
+.project-card--green .project-bar          { background: linear-gradient(to right, #059669, #34d399); }
+.project-card--green .project-highlight-arrow { color: #34d399; }
+
+.project-badge--green {
+  background: rgba(5,150,105,0.15);
+  border: 1px solid rgba(5,150,105,0.35);
+  color: #6ee7b7;
+}
+
+/* Shared badge base */
+.project-tech-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.28rem 0.65rem;
+  border-radius: 0.35rem;
+  white-space: nowrap;
+}

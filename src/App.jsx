@@ -1,37 +1,36 @@
 import { useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
+import Navbar         from './components/Navbar';
+import Hero           from './components/Hero';
+import About          from './components/About';
+import Skills         from './components/Skills';
+import Projects       from './components/Projects';
 import Certifications from './components/Certifications';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Contact        from './components/Contact';
+import Footer         from './components/Footer';
 
 export default function App() {
-  // Intersection Observer for scroll-triggered section reveals
+  /* Scroll-reveal: add 'visible' to .reveal elements when they enter the viewport */
   useEffect(() => {
-    const sections = document.querySelectorAll('section');
-    sections.forEach((s) => s.classList.add('section-hidden'));
+    const els = document.querySelectorAll('.reveal');
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove('section-hidden');
-            entry.target.classList.add('section-visible');
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animate once
           }
         });
       },
-      { threshold: 0.08 }
+      { threshold: 0.07, rootMargin: '0px 0px -40px 0px' }
     );
 
-    sections.forEach((s) => observer.observe(s));
+    els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
+    <div style={{ background: '#09090b', minHeight: '100vh', color: '#fafafa' }}>
       <Navbar />
       <main>
         <Hero />
