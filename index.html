@@ -7,15 +7,28 @@
     <meta name="description" content="Bellamkonda Surya Kiran — B.Tech CSE undergraduate at KL University. Full Stack Developer and AI Engineering Enthusiast. AWS & GitHub Copilot Certified." />
     <meta name="keywords" content="Bellamkonda Surya Kiran, Full Stack Developer, React, Spring Boot, AI, AWS, Portfolio" />
     <meta name="author" content="Bellamkonda Surya Kiran" />
-    <!-- Open Graph -->
     <meta property="og:title" content="Bellamkonda Surya Kiran | Portfolio" />
     <meta property="og:description" content="Full Stack Developer & AI Engineering Enthusiast. AWS CLF-C02 & GitHub Copilot Certified." />
     <meta property="og:type" content="website" />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>Bellamkonda Surya Kiran | Portfolio</title>
+
+    <!--
+      Anti-flash theme script: runs BEFORE React renders.
+      Reads saved preference (or OS preference) and sets data-theme on <html>
+      so the correct CSS variables are active from the very first paint.
+    -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('bsk-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = saved || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -9,7 +9,7 @@ import Contact        from './components/Contact';
 import Footer         from './components/Footer';
 
 export default function App() {
-  /* Scroll-reveal: add 'visible' to .reveal elements when they enter the viewport */
+  /* Scroll-reveal: add 'visible' to .reveal elements when they enter viewport */
   useEffect(() => {
     const els = document.querySelectorAll('.reveal');
 
@@ -18,7 +18,7 @@ export default function App() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // animate once
+            observer.unobserve(entry.target); // animate once only
           }
         });
       },
@@ -30,7 +30,8 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ background: '#09090b', minHeight: '100vh', color: '#fafafa' }}>
+    /* Use CSS vars for background/text — theme toggling updates them globally */
+    <div style={{ background: 'var(--bg-primary)', minHeight: '100vh', color: 'var(--text-primary)' }}>
       <Navbar />
       <main>
         <Hero />

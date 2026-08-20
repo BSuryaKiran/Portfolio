@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTheme } from '../hooks/useTheme';
 import './Navbar.css';
 
 const NAV_LINKS = [
@@ -9,15 +10,42 @@ const NAV_LINKS = [
   { label: 'Contact',        href: '#contact' },
 ];
 
+/* ── Icons ── */
+function SunIcon() {
+  return (
+    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5" />
+      <line x1="12" y1="1"  x2="12" y2="3" />
+      <line x1="12" y1="21" x2="12" y2="23" />
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+      <line x1="1" y1="12" x2="3"  y2="12" />
+      <line x1="21" y1="12" x2="23" y2="12" />
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const [menuOpen,      setMenuOpen]      = useState(false);
   const [scrolled,      setScrolled]      = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const { theme, toggle } = useTheme();
 
   /* ── scroll handler ── */
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 24);
-
     const ids = NAV_LINKS.map(l => l.href.slice(1));
     let current = '';
     for (const id of ids) {
@@ -29,18 +57,18 @@ export default function Navbar() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();                    // run once on mount
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  /* ── close menu on resize to desktop ── */
+  /* close mobile menu on resize */
   useEffect(() => {
     const close = () => { if (window.innerWidth >= 768) setMenuOpen(false); };
     window.addEventListener('resize', close);
     return () => window.removeEventListener('resize', close);
   }, []);
 
-  /* ── smooth scroll helper ── */
+  /* smooth scroll helper */
   const scrollTo = (e, href) => {
     e.preventDefault();
     setMenuOpen(false);
@@ -74,8 +102,9 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* CTA + Hamburger */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Right-side controls */}
+          <div className="navbar-controls">
+            {/* CTA */}
             <a
               href="#contact"
               className="navbar-cta"
@@ -87,6 +116,21 @@ export default function Navbar() {
               </svg>
             </a>
 
+            {/* Theme toggle */}
+            <button
+              id="theme-toggle"
+              className="theme-toggle"
+              onClick={toggle}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
+              {/* key forces re-mount → triggers spinIn animation on every switch */}
+              <span key={theme}>
+                {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+              </span>
+            </button>
+
+            {/* Hamburger (mobile) */}
             <button
               id="menu-toggle"
               aria-label="Toggle navigation"

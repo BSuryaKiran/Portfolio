@@ -10,16 +10,16 @@ const ROLES = [
 
 const STATS = [
   { value: '9.61', label: 'CGPA' },
-  { value: '2+',   label: 'Projects' },
-  { value: '3',    label: 'Certifications' },
-  { value: 'AWS',  label: 'CLF-C02' },
+  { value: '2+', label: 'Projects' },
+  { value: '3', label: 'Certifications' },
+  { value: 'AWS', label: 'CLF-C02' },
 ];
 
 export default function Hero() {
-  const [displayed,  setDisplayed]  = useState('');
-  const [roleIdx,    setRoleIdx]    = useState(0);
-  const [deleting,   setDeleting]   = useState(false);
-  const [charIdx,    setCharIdx]    = useState(0);
+  const [displayed, setDisplayed] = useState('');
+  const [roleIdx, setRoleIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const [charIdx, setCharIdx] = useState(0);
   const timeout = useRef(null);
 
   /* Typewriter */
@@ -56,7 +56,7 @@ export default function Hero() {
       {/* Decorations */}
       <div className="hero-grid" aria-hidden />
       <div className="hero-glow-center" aria-hidden />
-      <div className="hero-glow-right"  aria-hidden />
+      <div className="hero-glow-right" aria-hidden />
       <div className="hero-blob blob-anim" aria-hidden />
 
       <div className="hero-content">
@@ -96,7 +96,7 @@ export default function Hero() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <a href="mailto:bskiran2068@gmail.com" className="btn-secondary">
+          <a href="mailto:bskiran2006@gmail.com" className="btn-secondary">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
