@@ -88,8 +88,13 @@
   border-radius: 1rem;
   padding: 1.5rem 1rem;
   text-align: center;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.stat-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+.stat-card:hover {
+  border-color: var(--stat-glow, #a78bfa);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px var(--shadow-card), 0 0 20px rgba(124, 58, 237, 0.1);
+}
 .stat-card .emoji { font-size: 1.75rem; margin-bottom: 0.5rem; display: block; }
 .stat-card .value { font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 0.3rem; }
 .stat-card .label {
@@ -108,6 +113,13 @@
   border-radius: 1rem;
   background: var(--avail-bg);
   border: 1px solid rgba(109, 40, 217, 0.3);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.availability-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(124, 58, 237, 0.6);
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
 }
 .avail-icon {
   width: 44px; height: 44px;

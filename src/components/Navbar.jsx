@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { fireConfetti } from '../utils/confetti';
 import './Navbar.css';
 
 const NAV_LINKS = [
@@ -37,7 +38,7 @@ function MoonIcon() {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ onReplayIntro }) {
   const [menuOpen,      setMenuOpen]      = useState(false);
   const [scrolled,      setScrolled]      = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -57,8 +58,11 @@ export default function Navbar() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const frameId = requestAnimationFrame(handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(frameId);
+    };
   }, [handleScroll]);
 
   /* close mobile menu on resize */
@@ -75,6 +79,11 @@ export default function Navbar() {
     if (href === '#') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const target = document.querySelector(href);
     if (target) target.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleHireMe = (e) => {
+    fireConfetti(e.clientX, e.clientY, 40);
+    scrollTo(e, '#contact');
   };
 
   return (
@@ -104,11 +113,24 @@ export default function Navbar() {
 
           {/* Right-side controls */}
           <div className="navbar-controls">
+            {/* Replay Welcome Intro button */}
+            {onReplayIntro && (
+              <button
+                className="navbar-intro-btn"
+                onClick={onReplayIntro}
+                title="Replay welcoming intro animation"
+                aria-label="Replay welcoming intro animation"
+              >
+                <span className="intro-btn-sparkle">✨</span>
+                <span className="intro-btn-label">Intro</span>
+              </button>
+            )}
+
             {/* CTA */}
             <a
               href="#contact"
               className="navbar-cta"
-              onClick={(e) => scrollTo(e, '#contact')}
+              onClick={handleHireMe}
             >
               Hire Me
               <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,7 +146,6 @@ export default function Navbar() {
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
             >
-              {/* key forces re-mount → triggers spinIn animation on every switch */}
               <span key={theme}>
                 {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
               </span>
@@ -149,6 +170,15 @@ export default function Navbar() {
       {/* Mobile menu */}
       <div className={`mobile-menu${menuOpen ? ' open' : ''}`} aria-hidden={!menuOpen}>
         <div className="mobile-menu-inner">
+          {onReplayIntro && (
+            <button
+              className="mobile-intro-btn"
+              onClick={() => { setMenuOpen(false); onReplayIntro(); }}
+            >
+              ✨ Replay Welcome Intro
+            </button>
+          )}
+
           {NAV_LINKS.map(link => (
             <a
               key={link.href}
@@ -162,7 +192,7 @@ export default function Navbar() {
           <a
             href="#contact"
             className="mobile-cta"
-            onClick={(e) => scrollTo(e, '#contact')}
+            onClick={handleHireMe}
           >
             Hire Me
           </a>

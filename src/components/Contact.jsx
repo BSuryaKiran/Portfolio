@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { fireConfetti } from '../utils/confetti';
 import './Contact.css';
 
 const SOCIALS = [
@@ -63,6 +64,9 @@ export default function Contact() {
       return;
     }
     const mailto = `mailto:bskiran2006@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(form.name)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
+    
+    // Celebrate message dispatch
+    fireConfetti(window.innerWidth / 2, window.innerHeight / 2, 55);
     window.location.href = mailto;
     setSent(true);
     setForm({ name: '', email: '', message: '' });
@@ -76,12 +80,12 @@ export default function Contact() {
       <div className="section-container">
         {/* Header */}
         <div className="section-header">
-          <span className="section-label">Let's Connect</span>
+          <span className="section-label">Initiate Conversation</span>
           <h2 className="section-title">
-            Get In <span className="gradient-text">Touch</span>
+            Get In <span className="gradient-rainbow-text">Touch</span>
           </h2>
           <p className="section-subtitle">
-            Open to internships, collaborations, and good tech conversations.
+            Open to internships, full-time engineering roles, open source collaborations, and forward-looking discussions.
           </p>
         </div>
 
@@ -91,10 +95,13 @@ export default function Contact() {
             <div className="contact-bio-card">
               <p className="contact-bio-name">Bellamkonda Surya Kiran</p>
               <p className="contact-bio-sub">B.Tech CSE · KL University, Vijayawada</p>
-              <p className="contact-bio-cgpa">CGPA: 9.61</p>
+              <p className="contact-bio-cgpa">
+                <span className="cgpa-pill">9.61 CGPA</span>
+                <span className="cgpa-pill-sub">Generative AI Specialization</span>
+              </p>
               <p className="contact-bio-text">
-                Seeking internship and collaboration opportunities in full-stack development,
-                AI engineering, and cloud-native applications. Let's build something impactful together.
+                Actively seeking internship and full-time software engineering opportunities in full-stack architecture,
+                AI integration, and cloud development. Let's build something remarkable together.
               </p>
             </div>
 
@@ -106,6 +113,9 @@ export default function Contact() {
                   className="social-link"
                   target={s.external ? '_blank' : undefined}
                   rel={s.external ? 'noopener noreferrer' : undefined}
+                  onClick={(e) => {
+                    if (e.clientX && e.clientY) fireConfetti(e.clientX, e.clientY, 25);
+                  }}
                 >
                   {s.icon}
                   <div className="social-link-text">
@@ -119,14 +129,14 @@ export default function Contact() {
 
           {/* ── Right: Form ── */}
           <form className="contact-form-card" onSubmit={handleSubmit} noValidate>
-            <p className="form-title">Send a Message</p>
+            <p className="form-title">Send a Direct Message</p>
 
             {sent && (
               <div className="form-alert form-alert--success">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Opening your email client…
+                Opening your email client with drafted message…
               </div>
             )}
 
@@ -142,7 +152,7 @@ export default function Contact() {
                 type="text"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="John Doe"
+                placeholder="Alex Morgan"
                 className="form-input"
                 autoComplete="name"
               />
@@ -156,7 +166,7 @@ export default function Contact() {
                 type="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="john@example.com"
+                placeholder="alex@company.com"
                 className="form-input"
                 autoComplete="email"
               />
@@ -169,13 +179,13 @@ export default function Contact() {
                 name="message"
                 value={form.message}
                 onChange={handleChange}
-                placeholder="Hi Surya, I'd like to discuss…"
+                placeholder="Hi Surya, I reviewed your NexStep and FoodConnect projects and would love to discuss an engineering opportunity…"
                 className="form-textarea"
               />
             </div>
 
-            <button id="contact-submit" type="submit" className="form-submit">
-              Send Message
+            <button id="contact-submit" type="submit" className="form-submit btn-primary">
+              <span>Send Message</span>
               <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>

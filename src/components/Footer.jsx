@@ -1,6 +1,13 @@
+import { fireConfetti } from '../utils/confetti';
 import './Footer.css';
 
-const NAV_LINKS = ['#about', '#skills', '#projects', '#certifications', '#contact'];
+const NAV_LINKS = [
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Contact', href: '#contact' },
+];
 
 const SOCIALS = [
   {
@@ -34,13 +41,19 @@ const SOCIALS = [
   },
 ];
 
-export default function Footer() {
+export default function Footer({ onReplayIntro }) {
   const year = new Date().getFullYear();
 
   const scrollTo = (e, href) => {
     e.preventDefault();
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleBackToTop = (e) => {
+    e.preventDefault();
+    if (e.clientX && e.clientY) fireConfetti(e.clientX, e.clientY, 35);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -50,24 +63,33 @@ export default function Footer() {
         <div className="footer-top">
           {/* Logo */}
           <div>
-            <a href="#" className="footer-logo" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+            <a href="#" className="footer-logo" onClick={handleBackToTop}>
               BSK<span className="footer-logo-dot">.</span>
             </a>
-            <p className="footer-logo-sub">Bellamkonda Surya Kiran · KL University</p>
+            <p className="footer-logo-sub">Bellamkonda Surya Kiran · KL University · 9.61 CGPA</p>
           </div>
 
           {/* Nav */}
           <nav className="footer-nav" aria-label="Footer navigation">
-            {NAV_LINKS.map(href => (
+            {NAV_LINKS.map(link => (
               <a
-                key={href}
-                href={href}
+                key={link.href}
+                href={link.href}
                 className="footer-nav-link"
-                onClick={(e) => scrollTo(e, href)}
+                onClick={(e) => scrollTo(e, link.href)}
               >
-                {href.slice(1)}
+                {link.label}
               </a>
             ))}
+            {onReplayIntro && (
+              <button
+                className="footer-intro-btn"
+                onClick={onReplayIntro}
+                title="Replay welcoming intro animation"
+              >
+                ✨ Replay Intro
+              </button>
+            )}
           </nav>
 
           {/* Socials */}
@@ -80,6 +102,9 @@ export default function Footer() {
                 className="footer-social-btn"
                 target={s.external ? '_blank' : undefined}
                 rel={s.external ? 'noopener noreferrer' : undefined}
+                onClick={(e) => {
+                  if (e.clientX && e.clientY) fireConfetti(e.clientX, e.clientY, 20);
+                }}
               >
                 {s.icon}
               </a>
@@ -91,9 +116,13 @@ export default function Footer() {
         <div className="footer-bottom">
           <p className="footer-copy">
             © {year} Bellamkonda Surya Kiran. Built with{' '}
-            <span className="accent-violet">Vite + React</span> &amp;{' '}
+            <span className="accent-violet">Vite + React 19</span> &amp;{' '}
             <span className="accent-sky">Tailwind CSS</span>.
           </p>
+          <button className="footer-top-btn" onClick={handleBackToTop}>
+            <span>Back to top</span>
+            <span>↑</span>
+          </button>
         </div>
       </div>
     </footer>

@@ -19,7 +19,11 @@ export function useTheme() {
   // Sync any change to the DOM + localStorage.
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch (_) {}
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
+      // Ignore localStorage access issues in restrictive sandboxes
+    }
   }, [theme]);
 
   const toggle = useCallback(() => {

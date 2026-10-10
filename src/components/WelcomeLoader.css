@@ -1,0 +1,433 @@
+/* ============================================
+   WELCOME / LOADING ANIMATION STYLES
+   ============================================ */
+
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #050508;
+  color: #fafafa;
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.welcome-closing {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+/* Background animated glow orbs */
+.welcome-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: welcomeOrbFloat 8s ease-in-out infinite alternate;
+}
+
+.welcome-glow-1 {
+  width: 500px;
+  height: 500px;
+  top: -100px;
+  left: -80px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+  animation-duration: 7s;
+}
+
+.welcome-glow-2 {
+  width: 550px;
+  height: 550px;
+  bottom: -120px;
+  right: -90px;
+  background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+  animation-duration: 9s;
+}
+
+.welcome-glow-3 {
+  width: 380px;
+  height: 380px;
+  top: 40%;
+  right: 25%;
+  background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+  animation-duration: 11s;
+}
+
+.welcome-mesh-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+}
+
+@keyframes welcomeOrbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.12); }
+  100% { transform: translate(-25px, 25px) scale(0.95); }
+}
+
+/* Skip button */
+.welcome-skip-btn {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d4d4d8;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0.95rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(12px);
+}
+.welcome-skip-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+.welcome-kbd {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #a1a1aa;
+}
+
+/* Main container */
+.welcome-container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 620px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  background: rgba(18, 18, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.75rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(124, 58, 237, 0.18);
+  backdrop-filter: blur(20px);
+  animation: welcomePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes welcomePop {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Avatar / Logo ring */
+.welcome-avatar-wrapper {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-avatar-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(#8b5cf6, #06b6d4, #10b981, #f59e0b, #ec4899, #8b5cf6);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 3px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 3px));
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
+}
+
+.welcome-avatar-ring-inner {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+}
+
+.welcome-avatar-core {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e1b2e 0%, #0d0e15 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 16px rgba(124, 58, 237, 0.4);
+}
+
+.welcome-initials {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-spin {
+  animation: welcomeRotate 6s linear infinite;
+}
+.welcome-spin-reverse {
+  animation: welcomeRotateRev 10s linear infinite;
+}
+
+@keyframes welcomeRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes welcomeRotateRev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Floating sparkle dots */
+.welcome-sparkle-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+.welcome-sparkle-dot.s1 {
+  background: #38bdf8;
+  top: 4px;
+  right: 8px;
+  box-shadow: 0 0 10px #38bdf8;
+  animation: welcomePulse 1.8s ease-in-out infinite;
+}
+.welcome-sparkle-dot.s2 {
+  background: #ec4899;
+  bottom: 8px;
+  left: 6px;
+  box-shadow: 0 0 10px #ec4899;
+  animation: welcomePulse 2.2s ease-in-out infinite 0.5s;
+}
+.welcome-sparkle-dot.s3 {
+  background: #34d399;
+  top: 50%;
+  left: -8px;
+  box-shadow: 0 0 10px #34d399;
+  animation: welcomePulse 2s ease-in-out infinite 1s;
+}
+
+@keyframes welcomePulse {
+  0%, 100% { transform: scale(0.8); opacity: 0.4; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* Greeting badge */
+.welcome-greeting-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.95rem;
+  background: rgba(139, 92, 246, 0.14);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  color: #ddd6fe;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.welcome-greeting-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  animation: welcomePulse 1.5s infinite;
+}
+.welcome-greeting-word {
+  font-weight: 700;
+  color: #ffffff;
+}
+.welcome-greeting-divider {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Title & Name */
+.welcome-title {
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.welcome-prefix {
+  display: block;
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+}
+.welcome-name {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* Rainbow animated text */
+.gradient-rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #c084fc 0%,
+    #38bdf8 25%,
+    #34d399 50%,
+    #fbbf24 75%,
+    #f472b6 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbowShine 4s linear infinite;
+}
+
+@keyframes rainbowShine {
+  to { background-position: 200% center; }
+}
+
+/* Role text */
+.welcome-role {
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+.welcome-role-dot {
+  color: #8b5cf6;
+  margin: 0 0.35rem;
+  font-size: 0.75rem;
+}
+
+/* Progress bar block */
+.welcome-progress-block {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.78rem;
+}
+.welcome-status-text {
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s ease;
+}
+.welcome-pct-text {
+  color: #38bdf8;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+.welcome-progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.welcome-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #7c3aed, #0ea5e9, #10b981, #f59e0b);
+  position: relative;
+  transition: width 0.1s linear;
+}
+
+.welcome-progress-glow {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: #ffffff;
+  filter: blur(4px);
+  opacity: 0.75;
+}
+
+/* Enter button */
+.welcome-enter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.85rem 2.25rem;
+  border-radius: 0.875rem;
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.45);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 1.5rem;
+}
+.welcome-enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.65);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+}
+
+/* Tags */
+.welcome-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.welcome-tag {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+@media (max-width: 640px) {
+  .welcome-container {
+    padding: 2rem 1.25rem;
+  }
+  .welcome-name {
+    font-size: 1.6rem;
+  }
+  .welcome-role {
+    font-size: 0.82rem;
+  }
+  .welcome-skip-btn {
+    top: 1rem;
+    right: 1rem;
+  }
+}
